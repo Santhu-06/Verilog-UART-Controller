@@ -20,6 +20,10 @@ The design is split into an outer structural shell (`top.v`) that interconnects 
 The design was verified using a local loopback testbench (`tb_uart.v`) in Xilinx Vivado (XSim engine). The testbench feeds a virtual 100 MHz clock, asserts a system reset, transmits the character `'A'` (`8'h41`), and verifies successful receipt.
 
 ### Functional Verification Results
-* The simulation ran successfully for **2 ms** without errors.
-* The internal `tick` wire properly timed the transmission width.
-* The `rx_data[7:0]` register successfully latched the value `41` precisely when `rx_done` went high.
+* The simulation ran successfully for **2 ms** to allow the full 9600-baud frame to completely clear.
+* The internal `tick` wire properly timed the transmission width at the precise bit interval (~104 microseconds per bit).
+* The `rx_data[7:0]` register successfully latched the value `41` precisely when `rx_done` went high, matching the sent data flawlessly.
+
+### Behavioral Simulation Waveform
+
+![UART Simulation Waveform](waveform.png)
